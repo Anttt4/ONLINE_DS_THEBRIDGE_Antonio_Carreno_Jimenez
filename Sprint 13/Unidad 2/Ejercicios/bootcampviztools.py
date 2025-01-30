@@ -3,8 +3,6 @@ import seaborn as sns
 import pandas as pd
 import numpy as np
 
-from sklearn.metrics import ConfusionMatrixDisplay, classification_report
-
 
 def pinta_distribucion_categoricas(df, columnas_categoricas, relativa=False, mostrar_valores=False):
     num_columnas = len(columnas_categoricas)
@@ -40,7 +38,6 @@ def pinta_distribucion_categoricas(df, columnas_categoricas, relativa=False, mos
 
     plt.tight_layout()
     plt.show()
-
 
 
 def plot_categorical_relationship_fin(df, cat_col1, cat_col2, relative_freq=False, show_values=False, size_group = 5):
@@ -101,7 +98,6 @@ def plot_categorical_relationship_fin(df, cat_col1, cat_col2, relative_freq=Fals
 
         # Muestra el gráfico
         plt.show()
-
 
 
 def plot_categorical_numerical_relationship(df, categorical_col, numerical_col, show_values=False, measure='mean'):
@@ -166,7 +162,6 @@ def plot_categorical_numerical_relationship(df, categorical_col, numerical_col, 
         plt.show()
 
 
-
 def plot_combined_graphs(df, columns, whisker_width=1.5, bins = None):
     num_cols = len(columns)
     if num_cols:
@@ -192,8 +187,6 @@ def plot_combined_graphs(df, columns, whisker_width=1.5, bins = None):
 
         plt.tight_layout()
         plt.show()
-
-
 
 def plot_grouped_boxplots(df, cat_col, num_col):
     unique_cats = df[cat_col].unique()
@@ -259,7 +252,6 @@ def grafico_dispersion_con_correlacion(df, columna_x, columna_y, tamano_puntos=5
     plt.show()
 
 
-
 def bubble_plot(df, col_x, col_y, col_size, scale = 1000):
     """
     Crea un scatter plot usando dos columnas para los ejes X e Y,
@@ -280,32 +272,5 @@ def bubble_plot(df, col_x, col_y, col_size, scale = 1000):
     plt.ylabel(col_y)
     plt.title(f'Burbujas de {col_x} vs {col_y} con Tamaño basado en {col_size}')
     plt.show()
-
-
-
-def card_tipo(df, umbral_categoria = 10, umbral_continua = 30):
-    # Primera parte: Preparo el dataset con cardinalidades, % variación cardinalidad, y tipos
-    df_temp = pd.DataFrame([df.nunique(), df.nunique()/len(df) * 100, df.dtypes]) # Cardinaliad y porcentaje de variación de cardinalidad
-    df_temp = df_temp.T # Como nos da los valores de las columnas en columnas, y quiero que estas sean filas, la traspongo
-    df_temp = df_temp.rename(columns = {0: "Card", 1: "%_Card", 2: "Tipo"}) # Cambio el nombre de la transposición anterior para que tengan más sentido, y uso asignación en vez de inplace = True (esto es arbitrario para el tamaño de este dataset)
-
-    # Corrección para cuando solo tengo un valor
-    df_temp.loc[df_temp.Card == 1, "%_Card"] = 0.00
-
-    # Creo la columna de sugerencia de tipo de variable, empiezo considerando todas categóricas pero podría haber empezado por cualquiera, siempre que adapte los filtros siguientes de forma correspondiente
-    df_temp["tipo_sugerido"] = "Categorica"
-    df_temp.loc[df_temp["Card"] == 2, "tipo_sugerido"] = "Binaria"
-    df_temp.loc[df_temp["Card"] >= umbral_categoria, "tipo_sugerido"] = "Numerica discreta"
-    df_temp.loc[df_temp["%_Card"] >= umbral_continua, "tipo_sugerido"] = "Numerica continua"
-
-    return df_temp
-
-
-
-def metrics_evaluation(model, X, y_target):
-    y_pred = model.predict(X)
-    ConfusionMatrixDisplay.from_predictions(y_target, y_pred)
-    print(classification_report(y_target, y_pred))
-
 
 
