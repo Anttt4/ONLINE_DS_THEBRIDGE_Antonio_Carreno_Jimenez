@@ -304,7 +304,7 @@ def card_tipo(df, umbral_categoria = 10, umbral_continua = 30):
 
 def metrics_evaluation(model, X, y_target):
     y_pred = model.predict(X)
-    ConfusionMatrixDisplay.from_predictions(y_target, y_pred)
+    # ConfusionMatrixDisplay.from_predictions(y_target, y_pred)
     print(classification_report(y_target, y_pred))
 
 
