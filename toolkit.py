@@ -281,7 +281,23 @@ def bubble_plot(df, col_x, col_y, col_size, scale = 1000):
     plt.title(f'Burbujas de {col_x} vs {col_y} con Tamaño basado en {col_size}')
     plt.show()
 
+# def plot_histo_den(df, columns):
+#     num_cols = len(columns)
+#     num_rows = num_cols // 2 + num_cols % 2
+#     fig, axes = plt.subplots(num_rows, 2, figsize=(12, 6 * num_rows))
+#     axes = axes.flatten()
 
+#     for i, column in enumerate(columns):
+#         if df[column].dtype in ['int64', 'float64']:
+#             sns.histplot(df[column], kde=True, ax=axes[i])
+#             axes[i].set_title(f'Histograma y KDE de {column}')
+
+#     # Ocultar ejes vacíos
+#     for j in range(i + 1, num_rows * 2):
+#         axes[j].axis('off')
+
+#     plt.tight_layout()
+#     plt.show()
 
 def card_tipo(df, umbral_categoria = 10, umbral_continua = 30):
     # Primera parte: Preparo el dataset con cardinalidades, % variación cardinalidad, y tipos
