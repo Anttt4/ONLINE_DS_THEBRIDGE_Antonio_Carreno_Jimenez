@@ -1,0 +1,4 @@
+heroku
+railway
+fly.io
+vercel
